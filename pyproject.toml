@@ -7,7 +7,11 @@ authors = [
     { name = "Rafael De Moraes Lima", email = "rafaelmrslima@gmail.com" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "httpx>=0.28.1",
+    "ollama>=0.6.2",
+    "python-dotenv>=1.2.3",
+]
 
 [project.scripts]
 bjj-rules-rag = "bjj_rules_rag:main"
