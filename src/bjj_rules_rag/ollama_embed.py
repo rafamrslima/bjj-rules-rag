@@ -16,3 +16,13 @@ def embed_text(text: str, model: str = "nomic-embed-text") -> list[float]:
     )
     response.raise_for_status()
     return response.json()["embedding"]
+
+def chunk_text(text, chunk_size, overlap):
+    chunks = []
+    start = 0
+    while start < len(text):
+        end = start + chunk_size
+        chunk = text[start:end]
+        chunks.append(chunk)
+        start = start + chunk_size - overlap   # step forward, minus overlap
+    return chunks
