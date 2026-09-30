@@ -14,3 +14,8 @@ class Rule:
     chunk_index: int
     embedding: list[float]
     id: int | None = None
+
+@dataclass
+class RuleChunk:
+    text: str
+    source_section: str
