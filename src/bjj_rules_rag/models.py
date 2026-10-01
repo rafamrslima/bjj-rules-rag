@@ -19,3 +19,14 @@ class Rule:
 class RuleChunk:
     text: str
     source_section: str
+
+
+@dataclass
+class RuleMatch:
+    """A stored chunk returned by a similarity search; lower `distance` is more relevant."""
+
+    id: int
+    chunk_text: str
+    source_section: str
+    chunk_index: int
+    distance: float
