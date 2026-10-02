@@ -19,7 +19,7 @@ def insert_rule(conn: psycopg.Connection, rule: Rule) -> int:
         return row[0]
 
 
-def search_rule(conn: psycopg.Connection, vector: list[float], top_k: int = 5) -> list[RuleMatch]:
+def search_rule(conn: psycopg.Connection, vector: list[float], top_k: int = 10) -> list[RuleMatch]:
     """Return the `top_k` chunks closest to `vector` by cosine distance."""
     with conn.cursor() as cur:
         # A plain list is sent as double precision[]; the cast makes `<=>` resolve to

@@ -35,7 +35,7 @@ def chunk_rules(content: str) -> list[RuleChunk]:
 
 
 def format_for_embedding(chunk: RuleChunk) -> str:
-    return f"[{chunk.source_section}]\n{chunk.text}"
+    return f"search_document: [{chunk.source_section}]\n{chunk.text}"
 
 
 def _classify(content: str) -> list[_Line]:

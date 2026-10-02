@@ -17,7 +17,8 @@ dependencies = [
 ]
 
 [project.scripts]
-bjj-rules-rag = "bjj_rules_rag:main"
+bjj-ingest = "bjj_rules_rag:insert_chunks"
+bjj-ask = "bjj_rules_rag:ask"
 
 [build-system]
 requires = ["uv_build>=0.12.5,<0.13.0"]
