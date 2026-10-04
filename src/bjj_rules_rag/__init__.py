@@ -2,7 +2,7 @@ from pathlib import Path
 
 from bjj_rules_rag.chunking import chunk_rules, format_for_embedding
 from bjj_rules_rag.db import get_connection
-from bjj_rules_rag.models import Rule, RuleChunk
+from bjj_rules_rag.models import QueryResult, Rule, RuleChunk
 from bjj_rules_rag.ollama_embed import embed_text
 from bjj_rules_rag.repositories.rules_repo import insert_rule, search_rule
 from openai import OpenAI
@@ -16,7 +16,7 @@ def ask() -> None:
     if len(sys.argv) < 2:
         print('Usage: bjj-ask "your question"')
         sys.exit(1)
-    print(user_query(" ".join(sys.argv[1:])))
+    print(user_query(" ".join(sys.argv[1:]))["response"])
 
 def insert_chunks() -> None:
     content = RULES_PATH.read_text(encoding="utf-8")
@@ -35,7 +35,7 @@ def insert_chunks() -> None:
             insert_rule(conn, rule)
             print(f"[{idx + 1}/{len(chunks)}] {chunk.source_section}")
 
-def user_query(prompt: str) -> str | None:
+def user_query(prompt: str) -> QueryResult:
     embedding = embed_text(f"search_query: {prompt}")
 
     with get_connection() as conn:
@@ -45,7 +45,6 @@ def user_query(prompt: str) -> str | None:
         f"[{i}] {chunk.source_section}\n{chunk.chunk_text}"
         for i, chunk in enumerate(results, start=1)
     )
-    # print(context)
 
     system_prompt = (
         "You answer questions about the IBJJF Jiu-Jitsu rules using only the numbered "
@@ -53,7 +52,7 @@ def user_query(prompt: str) -> str | None:
         "How to answer:\n"
         "- Use the excerpts as your only source of facts, but you may combine excerpts "
         "and draw reasonable conclusions from them.\n"
-        "- After each claim, cite the excerpt(s) it comes from, like [2] or [1][4].\n"
+        "- After each claim, cite the rule number directly (for example 4.1.1).\n"
         "- End with a 'Sources:' line listing the section of each excerpt you cited.\n"
         "- If the excerpts cover the topic only partially, answer what they support and "
         "say what is missing.\n"
@@ -76,5 +75,7 @@ def user_query(prompt: str) -> str | None:
     if answer is None:
         raise RuntimeError("Model returned no content")
 
-    print(answer)
-    return answer
+    return {
+        "response": answer,
+        "retrieved_contexts": [chunk.chunk_text for chunk in results],
+    }

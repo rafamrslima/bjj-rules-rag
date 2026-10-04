@@ -1,0 +1,82 @@
+[    
+    {
+        "question": "How many seconds must an athlete stabilize a position to receive points for a takedown, sweep, or knee on belly?",
+        "reference": "An athlete must stabilize the position or control the opponent for a minimum of 3 consecutive seconds to be awarded the points."
+    },
+    {
+        "question": "What is the point value awarded to an athlete who successfully completes a guard pass?",
+        "reference": "A successful guard pass awards 3 points."
+    },
+    {
+        "question": "How many points does an athlete receive for achieving the Mount position or Back Control?",
+        "reference": "Both the Mount position and Back Control (with two hooks established) award 4 points each."
+    },
+    {
+        "question": "If an athlete pulls guard directly from the standing position without a submission attempt or a takedown initiation by the opponent, how many points are awarded?",
+        "reference": "Pulling guard results in 0 points."
+    },
+    {
+        "question": "What conditions must be met regarding the legs/feet to score 4 points for Back Control?",
+        "reference": "The athlete must place both heels on the inside of the opponent’s thighs (two hooks). The points are not awarded if the feet are crossed or if the legs are wrapped around the opponent's waist in a body triangle."
+    },
+    {
+        "question": "What is the progressive sequence of penalties on the scoreboard for serious fouls or stalling for an adult athlete?",
+        "reference": "The sequence is: 1st penalty is a formal warning on the scoreboard; 2nd penalty awards 1 advantage to the opponent; 3rd penalty awards 2 points to the opponent; 4th penalty results in immediate disqualification."
+    },
+    {
+        "question": "How does the penalty sequence differ for athletes under the age of 15 compared to adults before a disqualification occurs?",
+        "reference": "For athletes under 15 years old, on the 4th and 5th penalties, the referee awards 2 points to the opponent and 1 penalty to the athlete. They are only disqualified upon receiving their 6th penalty."
+    },
+    {
+        "question": "What happens if both athletes pull guard simultaneously (double guard pull) and neither achieves a top position within 20 seconds?",
+        "reference": "A 20-second countdown begins. If neither athlete moves to a top position, attempts a submission, or shows offensive progression within 20 seconds, both athletes receive a penalty for lack of combativeness and are ordered to stand up."
+    },
+    {
+        "question": "If both athletes receive a 3rd penalty for lack of combativeness (stalling) simultaneously, what action does the referee take?",
+        "reference": "The referee will stop the match and restart both athletes in the standing position."
+    },
+    {
+        "question": "What is the consequence if an athlete slams their opponent to escape from a submission hold, such as a triangle choke?",
+        "reference": "Slamming to escape a submission is classified as a severe foul and results in immediate disqualification."
+    },
+    {
+        "question": "Under what division specific rules are heel hooks and knee reaping allowed under IBJJF rules?",
+        "reference": "Heel hooks and knee reaping are only permitted in Adult No-Gi divisions for Brown and Black belts. They remain strictly illegal in all Gi divisions and all lower belt levels."
+    },
+    {
+        "question": "Are spine locks or suplex takedowns legal in IBJJF competitions?",
+        "reference": "No, spine locks (without a choke) and suplex takedowns that land the opponent on their head or neck are prohibited at all levels and result in immediate disqualification."
+    },
+    {
+        "question": "At what belt level are white belts allowed to use knee bars or toe holds?",
+        "reference": "White belts are strictly prohibited from using knee bars and toe holds; these submissions are restricted to brown and black belts."
+    },
+    {
+        "question": "What are the three approved colors for a Gi in IBJJF official tournaments?",
+        "reference": "The approved Gi colors are solid white, royal blue, or black."
+    },
+    {
+        "question": "Can an athlete compete in a Gi that features a contrasting lapel color (such as a black Gi with a red lapel)?",
+        "reference": "No, the entire Gi (including the jacket, pants, and lapel) must be of a uniform single color. Contrasting lapels are not compliant."
+    },
+    {
+        "question": "How close to the crease of the wrist must an athlete's Gi sleeve reach when their arms are extended forward?",
+        "reference": "The distance from the crease of the wrist to the edge of the sleeve must be no more than 2 centimeters."
+    },
+    {
+        "question": "What are the requirements for an athlete's undergarments beneath the Gi pants?",
+        "reference": "Undergarments are mandatory, and athletes are prohibited from wearing thongs. Only elastic/compression shorts or underwear are permitted."
+    },
+    {
+        "question": "How many chances does an athlete get to make weight at an IBJJF competition, and do they weigh in with or without the Gi for Gi divisions?",
+        "reference": "Athletes only get one chance to make weight, and they must weigh in wearing the exact Gi they will compete in for Gi divisions."
+    },
+    {
+        "question": "What is the difference between a standard match disqualification and a disciplinary disqualification regarding the rest of the event?",
+        "reference": "A standard match disqualification applies only to that specific match, while a disciplinary disqualification removes the athlete from the entire tournament, including other divisions they registered for (such as Gi and No-Gi)."
+    },
+    {
+        "question": "When points and advantages are completely tied at the end of a match, how is the winner determined?",
+        "reference": "The winner is determined by a Referee Decision, where the central and corner referees vote on who displayed greater combativeness and technical progression."
+    }
+]

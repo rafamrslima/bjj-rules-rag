@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import TypedDict
 
 
 @dataclass
@@ -30,3 +31,8 @@ class RuleMatch:
     source_section: str
     chunk_index: int
     distance: float
+
+
+class QueryResult(TypedDict):
+    response: str
+    retrieved_contexts: list[str]
