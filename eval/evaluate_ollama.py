@@ -7,6 +7,8 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from ragas.llms import LangchainLLMWrapper
 from ragas.embeddings import LangchainEmbeddingsWrapper
 from ragas.run_config import RunConfig
+from datetime import datetime
+from pathlib import Path
 
 # 1. Define evaluation questions and ground truth answers here
 print("Loading test dataset from eval_questions.json...")
@@ -51,7 +53,7 @@ async def main():
     print("Evaluating your RAG using local Ollama models...")
     run_config = RunConfig(
         timeout=600,      # seconds per job, including time waiting in Ollama's queue
-        max_workers=2,    # concurrent jobs; keep close to what Ollama processes in parallel
+        max_workers=1,    # concurrent jobs; keep close to what Ollama processes in parallel
         max_retries=3,    # default 10 retries x long waits can take hours
         max_wait=30,      # max backoff between retries
     )
@@ -62,9 +64,23 @@ async def main():
         embeddings=local_embeddings,
         run_config=run_config
     )
+
+    df = results.to_pandas()
+    output_dir = Path(__file__).parent / "results"
+    output_dir.mkdir(exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    csv_path = output_dir / f"ollama_llama3_{timestamp}.csv"
+
+    df.to_csv(csv_path, index=False, encoding="utf-8")
+    print(f"Saved per-question results to {csv_path}")
     
     print("\n=== Local Evaluation Results ===")
     print(results)
+    print(
+    df.sort_values("faithfulness")[["user_input", "faithfulness", "answer_relevancy", "context_precision", "context_recall"]]
+        .head(5)
+        .to_string(index=False)
+    )
 
 if __name__ == "__main__":
     # Ragas evaluations are asynchronous under the hood
