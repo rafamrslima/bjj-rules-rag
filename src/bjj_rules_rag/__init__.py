@@ -5,11 +5,15 @@ from bjj_rules_rag.db import get_connection
 from bjj_rules_rag.models import QueryResult, Rule, RuleChunk
 from bjj_rules_rag.ollama_embed import embed_text
 from bjj_rules_rag.repositories.rules_repo import insert_rule, search_rule
+from bjj_rules_rag.reranker import rerank as rerank_matches
 from openai import OpenAI
 import sys
 
 
 RULES_PATH = Path(__file__).resolve().parents[2] / "IBJJF_RULES.txt"
+RETRIEVAL_K = 20  # candidates fetched from pgvector for the reranker
+RERANK_TOP_N = 10  # chunks kept after reranking and sent to the LLM
+NO_RERANK_K = 10  # chunks sent to the LLM when reranking is off (the previous setup)
 client = OpenAI()
 
 def ask() -> None:
@@ -35,11 +39,14 @@ def insert_chunks() -> None:
             insert_rule(conn, rule)
             print(f"[{idx + 1}/{len(chunks)}] {chunk.source_section}")
 
-def user_query(prompt: str) -> QueryResult:
+def user_query(prompt: str, rerank: bool = True) -> QueryResult:
     embedding = embed_text(f"search_query: {prompt}")
 
     with get_connection() as conn:
-        results = search_rule(conn, embedding)
+        results = search_rule(conn, embedding, top_k=RETRIEVAL_K if rerank else NO_RERANK_K)
+
+    if rerank:
+        results = rerank_matches(prompt, results, top_n=RERANK_TOP_N)
 
     context = "\n\n---\n\n".join(
         f"[{i}] {chunk.source_section}\n{chunk.chunk_text}"

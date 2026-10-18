@@ -1,7 +1,7 @@
 import json
 import asyncio
 from ragas import EvaluationDataset, SingleTurnSample, evaluate
-from ragas.metrics import faithfulness, answer_relevancy
+from ragas.metrics import answer_relevancy, context_precision, context_recall, faithfulness
 from bjj_rules_rag import user_query 
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from ragas.llms import LangchainLLMWrapper
@@ -21,7 +21,15 @@ async def main():
     for item in qa_bank:
         # Run your actual system using the evaluation question
         rag_output = user_query(item["question"])
-        
+
+        # Context metrics score each chunk separately; one joined string would count as a single chunk.
+        contexts = rag_output["retrieved_contexts"]
+        if not isinstance(contexts, list) or not all(isinstance(c, str) for c in contexts):
+            raise TypeError(
+                f"retrieved_contexts must be list[str], got {type(contexts).__name__} "
+                f"for question: {item['question']!r}"
+            )
+
         # Structure it into the Ragas layout
         sample = SingleTurnSample(
             user_input=item["question"],
@@ -59,7 +67,7 @@ async def main():
     )
     results = evaluate(
         dataset=dataset,
-        metrics=[faithfulness, answer_relevancy],
+        metrics=[faithfulness, answer_relevancy, context_precision, context_recall],
         llm=local_llm,
         embeddings=local_embeddings,
         run_config=run_config
